@@ -1,9 +1,6 @@
 package com.ownhealthcareuserService.dto;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -14,6 +11,7 @@ import java.util.Date;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
+@Table(name = "patientPersonalInfo")
 public class UserPersonalInfo {
 
     @Id
@@ -21,6 +19,7 @@ public class UserPersonalInfo {
     private long id;
     private String fullName;
     private Date dateOfBirth;
+    private String gender;
     private String address;
     private String phoneNumber;
 }

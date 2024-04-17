@@ -13,6 +13,7 @@ public class PatientPersonalInfo {
 
     private String fullName;
     private Date dateOfBirth;
+    private String gender;
     private String address;
     private String phoneNumber;
 

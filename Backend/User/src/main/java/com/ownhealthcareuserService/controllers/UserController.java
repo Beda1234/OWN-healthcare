@@ -2,10 +2,9 @@ package com.ownhealthcareuserService.controllers;
 
 import com.ownhealthcareuserService.dto.UserInfo;
 import com.ownhealthcareuserService.dto.UserMedicalHistory;
+import com.ownhealthcareuserService.dto.UserMedicationHistory;
 import com.ownhealthcareuserService.dto.UserPersonalInfo;
-import com.ownhealthcareuserService.model.PatientMedicalHistory;
-import com.ownhealthcareuserService.model.PatientPersonalInfo;
-import com.ownhealthcareuserService.model.User;
+import com.ownhealthcareuserService.model.*;
 import com.ownhealthcareuserService.repository.UserRepository;
 import com.ownhealthcareuserService.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,9 +40,9 @@ public class UserController {
     /*
         To add user personal information.
      */
-    @PostMapping("/create")
-    public ResponseEntity<UserPersonalInfo> addUserInformation(@RequestBody PatientPersonalInfo patientPersonalInfo, @RequestParam String email){
-        UserPersonalInfo userPersonalInfo = userService.addUserPersonalInfo(patientPersonalInfo,email);
+    @PostMapping("/createPatient")
+    public ResponseEntity<UserPersonalInfo> createPatient(@RequestBody PatientPersonalInfo patientPersonalInfo, @RequestParam String email){
+        UserPersonalInfo userPersonalInfo = userService.addPatientPersonalInfo(patientPersonalInfo,email);
         return new ResponseEntity<>(userPersonalInfo,HttpStatus.CREATED);
     }
 
@@ -54,5 +53,23 @@ public class UserController {
     public ResponseEntity<UserMedicalHistory> createMedicalHistory(@RequestBody PatientMedicalHistory patientMedicalHistory){
         UserMedicalHistory userMedicalHistory = userService.addUserMedicalHistory(patientMedicalHistory);
         return new ResponseEntity<>(userMedicalHistory,HttpStatus.CREATED);
+    }
+
+    /*
+     To add user medication history.
+     */
+    @PostMapping("/createMedicationHistory")
+    public ResponseEntity<UserMedicationHistory> createMedicationHistory(@RequestBody PatientMedicationHistory patientMedicationHistory){
+        UserMedicationHistory userMedicationHistory = userService.addUserMedicationHistory(patientMedicationHistory);
+        return new ResponseEntity<>(userMedicationHistory,HttpStatus.CREATED);
+    }
+
+    /*
+    To fetch patient all information.
+     */
+    @GetMapping("/patientInfo/{id}")
+    public ResponseEntity<PatientAllInformation> getPatientAllInformation(@PathVariable long id){
+        PatientAllInformation patientAllInformation = userService.getPatientAllInformation(id);
+        return new ResponseEntity<>(patientAllInformation,HttpStatus.OK);
     }
 }

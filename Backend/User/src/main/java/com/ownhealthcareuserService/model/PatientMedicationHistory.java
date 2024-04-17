@@ -4,6 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -11,10 +13,9 @@ public class PatientMedicationHistory {
 
     private String prescription;
     private String counter;
-    private String supplements;
+    private List<String> supplements;
     private String dosage;
     private String frequency;
-    private String allergies;
+    private List<String> allergies;
     private String intolerance;
-
 }
