@@ -1,7 +1,9 @@
 package com.ownhealthcareuserService.controllers;
 
 import com.ownhealthcareuserService.dto.UserInfo;
+import com.ownhealthcareuserService.dto.UserMedicalHistory;
 import com.ownhealthcareuserService.dto.UserPersonalInfo;
+import com.ownhealthcareuserService.model.PatientMedicalHistory;
 import com.ownhealthcareuserService.model.PatientPersonalInfo;
 import com.ownhealthcareuserService.model.User;
 import com.ownhealthcareuserService.repository.UserRepository;
@@ -44,5 +46,14 @@ public class UserController {
     public ResponseEntity<UserPersonalInfo> addUserInformation(@RequestBody PatientPersonalInfo patientPersonalInfo, @RequestParam String email){
         UserPersonalInfo userPersonalInfo = userService.addUserPersonalInfo(patientPersonalInfo,email);
         return new ResponseEntity<>(userPersonalInfo,HttpStatus.CREATED);
+    }
+
+    /*
+     To add User Medical Hostory
+     */
+    @PostMapping("/createMedicalHistory")
+    public ResponseEntity<UserMedicalHistory> createMedicalHistory(@RequestBody PatientMedicalHistory patientMedicalHistory){
+        UserMedicalHistory userMedicalHistory = userService.addUserMedicalHistory(patientMedicalHistory);
+        return new ResponseEntity<>(userMedicalHistory,HttpStatus.CREATED);
     }
 }

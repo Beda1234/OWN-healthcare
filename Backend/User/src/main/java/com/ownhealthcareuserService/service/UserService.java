@@ -4,9 +4,12 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import com.ownhealthcareuserService.dto.UserInfo;
+import com.ownhealthcareuserService.dto.UserMedicalHistory;
 import com.ownhealthcareuserService.dto.UserPersonalInfo;
+import com.ownhealthcareuserService.model.PatientMedicalHistory;
 import com.ownhealthcareuserService.model.PatientPersonalInfo;
 import com.ownhealthcareuserService.model.User;
+import com.ownhealthcareuserService.repository.MedicalHistoryRepository;
 import com.ownhealthcareuserService.repository.UserPersonalInfoRepository;
 import com.ownhealthcareuserService.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +26,8 @@ public class UserService {
     private UserRepository userRepository;
     @Autowired
     private UserPersonalInfoRepository userPersonalInfoRepository;
+    @Autowired
+    private MedicalHistoryRepository medicalHistoryRepository;
 
     public List<User> getUserInfo(String email){
         Optional<UserInfo> userdata = userRepository.findByEmail(email);
@@ -53,5 +58,19 @@ public class UserService {
          else {
             throw new IllegalArgumentException("UserInfo not found for email: " + email);
         }
+    }
+
+    /*
+    To add User Medical Hostory
+    */
+    public UserMedicalHistory addUserMedicalHistory(PatientMedicalHistory patientMedicalHistory){
+        UserMedicalHistory userMedicalHistory = new UserMedicalHistory();
+
+        userMedicalHistory.setCurrentCondition(patientMedicalHistory.getCondition());
+        userMedicalHistory.setSurgery(patientMedicalHistory.isSurgery());
+        userMedicalHistory.setSurgeryInfo(patientMedicalHistory.getSurgeryInfo());
+        userMedicalHistory.setAllergies(patientMedicalHistory.getAllergies());
+        userMedicalHistory.setHereditaryDiseases(patientMedicalHistory.getHereditaryDiseases());
+        return medicalHistoryRepository.save(userMedicalHistory);
     }
 }

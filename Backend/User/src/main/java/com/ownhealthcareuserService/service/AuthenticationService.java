@@ -59,7 +59,12 @@ public class AuthenticationService {
     }
 
     private void saveUserToken(UserInfo user, String jwtToken) {
-        var token = Token.builder().user(user).token(jwtToken).tokenType(TokenType.BEARER).expired(false).revoked(false)
+        var token = Token.builder()
+                .user(user)
+                .token(jwtToken)
+                .tokenType(TokenType.BEARER)
+                .expired(false)
+                .revoked(false)
                 .build();
         tokenRepository.save(token);
     }

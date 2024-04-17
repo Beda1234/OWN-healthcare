@@ -9,11 +9,11 @@ import org.springframework.data.jpa.repository.Query;
 
 public interface TokenRepository extends JpaRepository<Token, Long>{
 
-//    @Query(value = """
-//		      select t from Token t inner join User u\s
-//		      on t.user.id = u.id\s
-//		      where u.id = :id and (t.expired = false or t.revoked = false)\s
-//		      """)
+    @Query(value = """
+		      select t from Token t inner join UserInfo u\s
+		      on t.user.id = u.id\s
+		      where u.id = :id and (t.expired = false or t.revoked = false)\s
+		      """)
     List<Token> findAllValidTokenByUser(long id);
     Optional<Token> findByToken(String token);
 
