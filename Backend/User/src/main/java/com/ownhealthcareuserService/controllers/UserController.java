@@ -20,7 +20,6 @@ import java.util.List;
 public class UserController {
     @Autowired
     private UserRepository userRepository;
-
     @Autowired
     private UserService userService;
 
@@ -49,7 +48,7 @@ public class UserController {
     }
 
     /*
-     To add User Medical Hostory
+     To add User Medical History
      */
     @PostMapping("/createMedicalHistory")
     public ResponseEntity<UserMedicalHistory> createMedicalHistory(@RequestBody PatientMedicalHistory patientMedicalHistory){
