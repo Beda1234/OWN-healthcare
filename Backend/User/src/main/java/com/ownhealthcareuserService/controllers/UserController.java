@@ -1,16 +1,17 @@
 package com.ownhealthcareuserService.controllers;
 
 import com.ownhealthcareuserService.dto.UserInfo;
+import com.ownhealthcareuserService.dto.UserMedicalHistory;
+import com.ownhealthcareuserService.dto.UserPersonalInfo;
+import com.ownhealthcareuserService.model.PatientMedicalHistory;
+import com.ownhealthcareuserService.model.PatientPersonalInfo;
 import com.ownhealthcareuserService.model.User;
 import com.ownhealthcareuserService.repository.UserRepository;
 import com.ownhealthcareuserService.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -19,7 +20,6 @@ import java.util.List;
 public class UserController {
     @Autowired
     private UserRepository userRepository;
-
     @Autowired
     private UserService userService;
 
@@ -36,5 +36,23 @@ public class UserController {
     public ResponseEntity<List<User>> getUser(@RequestParam("email")String email){
         List<User> userData = userService.getUserInfo(email);
         return new ResponseEntity<>(userData, HttpStatus.OK);
+    }
+
+    /*
+        To add user personal information.
+     */
+    @PostMapping("/create")
+    public ResponseEntity<UserPersonalInfo> addUserInformation(@RequestBody PatientPersonalInfo patientPersonalInfo, @RequestParam String email){
+        UserPersonalInfo userPersonalInfo = userService.addUserPersonalInfo(patientPersonalInfo,email);
+        return new ResponseEntity<>(userPersonalInfo,HttpStatus.CREATED);
+    }
+
+    /*
+     To add User Medical History
+     */
+    @PostMapping("/createMedicalHistory")
+    public ResponseEntity<UserMedicalHistory> createMedicalHistory(@RequestBody PatientMedicalHistory patientMedicalHistory){
+        UserMedicalHistory userMedicalHistory = userService.addUserMedicalHistory(patientMedicalHistory);
+        return new ResponseEntity<>(userMedicalHistory,HttpStatus.CREATED);
     }
 }
